@@ -19,15 +19,15 @@ type Game struct {
 // Update is called every tick (1/60 [s] by default).
 func (g *Game) Update(screen *ebiten.Image) error {
 	// Write your game's logical update.
-	x, y, z := ebiten.GetSensorAccelerometer()
+	x, y, z := ebiten.SensorAccelerometer()
 	g.x = x
 	g.y = y
 	g.z = z
-	x, y, z = ebiten.GetSensorGyroscope()
+	x, y, z = ebiten.SensorGyroscope()
 	g.x2 = x
 	g.y2 = y
 	g.z2 = z
-	x, y, z = ebiten.GetSensorMagnetometer()
+	x, y, z = ebiten.SensorMagnetometer()
 	g.x3 = x
 	g.y3 = y
 	g.z3 = z
