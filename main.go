@@ -10,7 +10,9 @@ import (
 
 // Game implements ebiten.Game interface.
 type Game struct {
-	x, y, z float64
+	x, y, z    float64
+	x2, y2, z2 float64
+	x3, y3, z3 float64
 }
 
 // Update proceeds the game state.
@@ -21,13 +23,23 @@ func (g *Game) Update(screen *ebiten.Image) error {
 	g.x = x
 	g.y = y
 	g.z = z
+	x, y, z = ebiten.GetSensorGyroscope()
+	g.x2 = x
+	g.y2 = y
+	g.z2 = z
+	x, y, z = ebiten.GetSensorMagnetometer()
+	g.x3 = x
+	g.y3 = y
+	g.z3 = z
 	return nil
 }
 
 // Draw draws the game screen.
 // Draw is called every frame (typically 1/60[s] for 60Hz display).
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, fmt.Sprintf("x %f, y %f, z %f", g.x, g.y, g.z))
+	ebitenutil.DebugPrint(screen, fmt.Sprintf("Accelerometer\nx %f, y %f, z %f", g.x, g.y, g.z))
+	ebitenutil.DebugPrint(screen, fmt.Sprintf("\n\nGyroscope\nx %f, y %f, z %f", g.x2, g.y2, g.z2))
+	ebitenutil.DebugPrint(screen, fmt.Sprintf("\n\n\n\nMagnetometer\nx %f, y %f, z %f", g.x3, g.y3, g.z3))
 	// Write your game's rendering.
 }
 
@@ -38,6 +50,8 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 }
 
 func main() {
+	fmt.Println("test")
+	log.Println("testlog")
 	game := &Game{}
 	// Sepcify the window size as you like. Here, a doulbed size is specified.
 	ebiten.SetWindowSize(640, 480)
